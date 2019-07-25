@@ -1,4 +1,21 @@
-xzCXCZXC
-XZCZCZ
-cZXCZXCZXC
-ZXCZXCZXCZ
+#!Groovy
+// Check Softx propertis
+properties ([disableConcurrentBulds()])
+
+pipeline {
+    agent {
+                label 'master'
+                {
+         option {
+                 buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10' ))
+                 timestamps()
+           }
+       stages {
+                  
+                   strages("Preparations") {
+                                  steps {
+                                             sh 'ssh root@138.197.191.89 \ 'hostname\''
+                                             }
+                                    }
+                                    
+      }
