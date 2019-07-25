@@ -1,21 +1,25 @@
-#!Groovy
-// Check Softx propertis
-properties ([disableConcurrentBulds()])
+#!groovy
+// Check ub1 properties
+properties([disableConcurrentBuilds()])
 
 pipeline {
-    agent {
-                label 'master'
-                {
-         option {
-                 buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10' ))
-                 timestamps()
-           }
-       stages {
-                  
-                   strages("Preparations") {
-                                  steps {
-                                             sh 'ssh root@138.197.191.89 \ 'hostname\''
-                                             }
-                                    }
-                                    
-      }
+    agent { 
+        label 'master'
+        }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+        timestamps()
+    }
+    stages {
+        stage("First step") {
+            steps {
+                sh 'ssh root@138.197.191.89 \'hostname\''
+            }
+        }
+        stage("Second step") {
+            steps {
+                sh 'ssh root@138.197.191.89 \'uptime\''
+            }
+        }
+    }
+}
